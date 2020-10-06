@@ -1,0 +1,156 @@
+#include<bits/stdc++.h>
+#define f ios_base::sync_with_stdio(false);cin.tie(NULL);
+#define mod 1000000007
+#define ll long long
+using namespace std;
+struct path
+{
+  int v107,v13,v1019;
+}dp[1001][1001];
+ll a[1001][1001], b[1001][1001]={0};
+ll x=212072634227239451;
+int path(int x,int y,int n,int m)
+{
+ if(x>n || y>m ) return 0;
+ if(b[x][y]>0) return b[x][y];
+ if(dp[x][y].v107>1 && dp[x][y].v13>1 && dp[x][y].v1019>0)
+ {
+
+   return 0;
+ }
+ if((x==n && y==m ) && dp[x][y].v107<2 || dp[x][y].v13<2 || dp[x][y].v1019<0)
+ {
+   return 1;
+ }
+  if(x+1<=n)
+  {
+  dp[x+1][y].v107+=dp[x][y].v107;
+  dp[x+1][y].v13+=dp[x][y].v13;
+  dp[x+1][y].v1019+=dp[x][y].v1019;
+  }
+  b[x+1][y]= path(x+1,y,n,m);
+  if(y+1<=m)
+  {
+  dp[x][y+1].v107+=dp[x][y].v107;
+  dp[x][y+1].v13+=dp[x][y].v13;
+  dp[x][y+1].v1019+=dp[x][y].v1019;
+  }
+  b[x][y+1]= path(x,y+1,n,m);
+  b[x][y]= b[x+1][y] + b[x][y+1] ;
+  return b[x][y];
+}
+int main()
+{
+  int n,m;  cin>>n>>m;  f
+  for(int i=0;i<n;i++)
+   for(int j=0;j<m;j++)
+    { dp[i][j].v107=0; dp[i][j].v13=0; dp[i][j].v1019=0; }
+
+
+  cout<<"dp table\n";
+  for(int i=0;i<n;i++){
+   for(int j=0;j<m;j++)
+    { cout<<dp[i][j].v107<<"/"<<dp[i][j].v13<<"/"<< dp[i][j].v1019<< ' '; }
+   cout<<endl;
+  }
+  cout<<"array intry \n";
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<m;j++)
+    {
+     cin>>a[i][j];
+     while(a[i][j]%107==0 || a[i][j]%1361==0  || a[i][j]%10000019==0)
+     {
+      if(a[i][j]%107==0)      { dp[i][j].v107++;  a[i][j]=a[i][j]/107;         }
+	    if(a[i][j]%1361==0)      { dp[i][j].v13++; a[i][j]=a[i][j]/1361;       }
+      if(a[i][j]%10000019==0)  {  dp[i][j].v1019++; a[i][j]=a[i][j]/10000019; }
+	  } //while end
+
+     //cout<<a[i][j]<<' ';
+     }                          //for j
+  //cout<<endl;
+  }    // end i wala loop
+  if(a[n-1][m-1]%x==0 || a[0][0]%x==0)
+  {
+    cout<<"0"; return 0;
+  }
+  ll total= path(0,0,n-1,m-1) %mod;
+  //cout<<total;
+  cout<<"dp table\n";
+  for(int i=0;i<n;i++){
+   for(int j=0;j<m;j++)
+    { cout<<dp[i][j].v107<<"/"<<dp[i][j].v13<<"/"<< dp[i][j].v1019<< ' '; }
+   cout<<endl;
+  }
+}//end program
+
+
+
+
+
+/*
+#include<bits/stdc++.h>
+#define f ios_base::sync_with_stdio(false);cin.tie(NULL);
+#define mod 1000000007
+#define ll long long
+using namespace std;
+struct path
+{
+  int v107,v13,v1019;
+}dp[1001][1001];
+ll a[1001][1001], b[1001][1001]={0};
+ll x=212072634227239451;
+int path(int x,int y,int n,int m)
+{
+ if(x>n || y>m ) return 0;
+ if(b[x][y]>0) return b[x][y];
+ if(dp[x][y].v107>1 && dp[x][y].v13>1 && dp[x][y].v1019>0) return 0;
+
+  b[x+1][y]= path(x+1,y,n,m);
+  b[x][y+1]= path(x,y+1,n,m);
+  b[x][y]= b[x+1][y] +  b[x][y+1] ;
+  return b[x][y];
+}
+int main()
+{
+  int n,m;  cin>>n>>m;  f
+  for(int i=0;i<n;i++)
+   for(int j=0;j<m;j++)
+    { dp[i][j].v107=0; dp[i][j].v13=0; dp[i][j].v1019=0; }
+ /* cout<<"dp table\n";
+  for(int i=0;i<n;i++){
+   for(int j=0;j<m;j++)
+    { cout<<dp[i][j].v107<<"/"<<dp[i][j].v13<<"/"<< dp[i][j].v1019<< ' '; }
+   cout<<endl;
+  }*/
+  cout<<"array intry \n";
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<m;j++)
+    {
+     cin>>a[i][j];
+     while(a[i][j]%107==0 || a[i][j]%1361==0  || a[i][j]%10000019==0)
+     {
+      if(a[i][j]%107==0)      { dp[i][j].v107++;  a[i][j]=a[i][j]/107;         }
+	    if(a[i][j]%1361==0)      { dp[i][j].v13++; a[i][j]=a[i][j]/1361;       }
+      if(a[i][j]%10000019==0)  {  dp[i][j].v1019++; a[i][j]=a[i][j]/10000019; }
+	  } //while end
+
+     //cout<<a[i][j]<<' ';
+     }                          //for j
+  //cout<<endl;
+  }    // end i wala loop
+  if(a[n-1][m-1]%x==0 || a[0][0]%x==0)
+  {
+    cout<<"0"; return 0;
+  }
+  ll total= path(0,0,n-1,m-1) %mod;
+  cout<<total;
+  /*cout<<"dp table\n";
+  for(int i=0;i<n;i++){
+   for(int j=0;j<m;j++)
+    { cout<<dp[i][j].v107<<"/"<<dp[i][j].v13<<"/"<< dp[i][j].v1019<< ' '; }
+   cout<<endl;
+  }  */
+}//end program
+
