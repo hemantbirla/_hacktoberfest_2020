@@ -1,0 +1,165 @@
+/*
+Q 1) Define a class Time having four private data members; hour, min, and sec. The class
+must have folllowing methods:
+ A default constructor
+ A parameterized constructor
+ A displayTime() method to display the time in HH:MM:SS format.
+ A setTime(byte,byte,byte) to set the values of hour, min, and sec.
+ An addTime(Time,Time) method to add two Time objects passes as
+arguments and store the result in the object that has called the method.
+ A subtractTime(Time,Time) method : to subtract two Time objects passes as
+arguments and store the result in the object that has called the method.
+ toSeconds() method to convert the time into number of seconds
+ tohours() method to convert the time into total number of hours
+*/
+
+import java.util.*;
+class Time
+{
+   private int hour,minute,second;
+   Time()
+   {
+       hour=0;
+       minute=0;
+       second=0;
+   }
+   Time(int hour,int minute,int second)
+   {
+       this.hour=hour;
+       this.second=second;
+       this.minute=minute;
+   }
+   void displayTime()
+   {
+       System.out.println("Time in hour:minute:second format is "+hour+":"+minute+":"+second);
+   }
+   void setTime(byte hour,byte minute,byte second)
+   {
+       this.hour=hour;
+       this.second=second;
+       this.minute=minute;
+   }
+    Time addTime(Time t1, Time t2)
+   {
+       Time t=new Time();
+       t.hour=t1.hour+t2.hour;
+       t.minute=t1.minute+t2.minute;
+       t.second=t1.second+t2.second;
+       return t;
+   }
+   Time subtractTime(Time t1,Time t2)
+   {
+        Time t=new Time();
+       t.hour=t1.hour-t2.hour;
+       t.minute=t1.minute-t2.minute;
+       t.second=t1.second-t2.second;
+       return t;
+   }
+   int toSeconds()
+   {
+       int seconds=hour*3600+minute*60+second;
+       return seconds;
+   }
+   float toHour()
+   {
+       float hours;
+       int seconds=minute*60+second;
+       hours=hour+((float)seconds/3600);
+       return hours;
+   }
+}
+public class program1 {
+     public static void main(String[] args) {
+         Time t1=new Time();
+          Scanner inp=new Scanner(System.in);
+             while(true)
+          {System.out.println("\t\t\t\tMENU ");
+           System.out.println(" 1. Display Time ");
+          System.out.println(" 2. Set Time  ");
+          System.out.println(" 3. Add Time ");
+          System.out.println(" 4. Subtract Time ");
+          System.out.println(" 5.  Convert to Seconds");
+          System.out.println(" 6. Convert to Hours ");
+           System.out.println(" 7. Exit ");
+           int choice;
+           System.out.println("Choice :");
+   
+           choice=inp.nextInt();
+           switch(choice)
+           {
+               case 1:
+                   t1.displayTime();
+                   break;
+               case 2:
+                   byte hour,minute,second;
+                    System.out.println(" Enter hour : ");
+                     hour=inp.nextByte();
+                    System.out.println(" Enter minute : ");
+                    minute=inp.nextByte();
+                     System.out.println(" Enter second : ");
+                    second=inp.nextByte();
+                   t1.setTime(hour,minute,second);
+                   break;
+               case 3:
+                  Time t3,t4;
+                  byte h1,h2,m1,m2,s1,s2;
+                  t3=new Time();
+                  t4=new Time();
+                   System.out.println(" Enter two timwe to be added : ");
+                    System.out.println(" Enter hour : ");
+                     h1=inp.nextByte();
+                    System.out.println(" Enter minute : ");
+                    m1=inp.nextByte();
+                     System.out.println(" Enter second : ");
+                    s1=inp.nextByte();
+                    t3.setTime(h1, m1, s1);
+                     System.out.println(" Enter hour : ");
+                     h2=inp.nextByte();
+                    System.out.println(" Enter minute : ");
+                    m2=inp.nextByte();
+                     System.out.println(" Enter second : ");
+                    s2=inp.nextByte();
+                    t4.setTime(h2, m2, s2);
+                  t1=t1.addTime(t3,t4);
+                   break;
+               case 4:
+                  Time t5,t6;
+                  byte h3,h4,m3,m4,s3,s4;
+                  t5=new Time();
+                  t6=new Time();
+                   System.out.println(" Enter two timwe to be subtracted : ");
+                    System.out.println(" Enter hour : ");
+                     h3=inp.nextByte();
+                    System.out.println(" Enter minute : ");
+                    m3=inp.nextByte();
+                     System.out.println(" Enter second : ");
+                    s3=inp.nextByte();
+                    t5.setTime(h3, m3, s3);
+                     System.out.println(" Enter hour : ");
+                     h4=inp.nextByte();
+                    System.out.println(" Enter minute : ");
+                    m4=inp.nextByte();
+                     System.out.println(" Enter second : ");
+                    s4=inp.nextByte();
+                    t6.setTime(h4, m4, s4);
+                  t1=t1.subtractTime(t5,t6);
+                   break;
+               case 5:
+                 System.out.println("Total time in seconds is : "+t1.toSeconds());
+                   break;
+               case 6:
+              System.out.println("Total time in Hour is : "+t1.toHour());
+                   break;
+                   
+               case 7:
+                   System.exit(0);
+                   
+                   
+           
+          }
+    }
+         
+         
+         
+     }
+}
